@@ -1,6 +1,7 @@
 import React from 'react';
-import HeaderComponent from './HeaderComponent';
+import TodoHeader from './TodoHeader';
 import TodoList from './TodoList';
+import TodoFooter from './TodoFooter';
 
 import './../../node_modules/todomvc-app-css/index.css';
 
@@ -48,6 +49,11 @@ class ToDoApp extends React.Component {
 		
 	}
 
+	activeTodo(){
+		var activeTodos =  this.state.todos.filter(todo => todo.completed === false );
+		return activeTodos.length;
+	}
+
 	componentDidMount(){
 		this.setState({'todos': [
 			{id: 1, title: "task 1", completed: true},
@@ -56,13 +62,27 @@ class ToDoApp extends React.Component {
 		]});
 	}
 	render() {
+		var getTodos = function(){
+			var path = this.props.route.path;
+			var data;
+			if(path === 'completed' || path === 'active'){
+				var status = path === 'completed';
+				data = this.state.todos.filter(todo => todo.completed === status)
+			}
+			else{
+				data = this.state.todos
+			}
+			return data;
+		}
+
 		return (
 			<section className="todoapp">
-	        	<HeaderComponent addTodo={this.addTodo.bind(this)} />
+	        	<TodoHeader addTodo={this.addTodo.bind(this)} />
 	        	<TodoList 
-	        		todos={this.state.todos} 
+	        		todos={getTodos.bind(this)()} 
 	        		updateTodo={this.updateTodo.bind(this)} 
 	        		deleteTodo={this.deleteTodo.bind(this)} />
+	        	<TodoFooter activeTodo={this.activeTodo()} />
 	      	</section>
 		);
 	}

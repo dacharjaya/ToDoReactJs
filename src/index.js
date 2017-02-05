@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import ToDoApp from './component/TodoComponent';
 
+import routes from './config/routes';
 import './index.css';
 
-ReactDOM.render(
-  <ToDoApp />,
-  document.getElementById('root')
-);
+ReactDOM.render(routes, document.getElementById('root'));
+

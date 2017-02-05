@@ -1,6 +1,6 @@
 import React from 'react';
 
-class HeaderComponent extends React.Component {
+class TodoHeader extends React.Component {
 	render() {
 		return (
 			<header className="header">
@@ -18,4 +18,4 @@ class HeaderComponent extends React.Component {
 	}
 }
 
-export default HeaderComponent;
+export default TodoHeader;
